@@ -3,10 +3,8 @@ def is_number(n):
     try:
         float(n)
     except ValueError:
-        print('n must be a number')
         return False
     return True
-
 def sigmoid(n):
     return 1/(1+(math.e)**(-n))
 def ReLU(n):
@@ -35,5 +33,5 @@ def exercise2(n):
         else:
             print(f"{func} is not supportted")
             break
-exercise2(1.5)
+exercise2(3)
 

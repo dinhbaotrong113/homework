@@ -66,22 +66,19 @@ import cv2
 
 img = cv2.imread('D:/Homework/Module2/Week2/Wednesday/4.convert_color/image_color.png', 0)
 height, width = img.shape
+print(np.indices((3, 3)).shape)
 coords = np.indices((height, width)).reshape(2, -1)
-print(coords)
 coords = np.vstack((coords[1], coords[0]))
-plt.imshow(img)
-plt.show()
-img_resize = np.reshape(img, (2, -1), 'C')
 # take the transformation
 
 a = np.array([[1, 0],
               [0, -1]])
-import numpy as np
 p = np.array([0, height - 1]).reshape(2,1)
-print(p)
+
 # transformation
 
-out_put = a.dot(img_resize) + p
-out_put = np.reshape(out_put, (height, width), 'C')
+New_coords = a.dot(coords) + np.array([[0], [height-1]])
+New_coords = New_coords.reshape(2, height, width)
+out_put = img[New_coords[1], New_coords[0]]
 plt.imshow(out_put)
 plt.show()

@@ -1,78 +1,50 @@
 import pandas as pd
 import numpy as np
 
-data = pd.read_csv('D:/Homework/Module2/Week1/temperature-1d.csv').to_numpy()
+a = np.array([[1,2],[3,4]])
 
-temp = data[:,1].reshape(-1,24)
-sum_temp_one_day = temp.sum(axis=1)
-average_one_day = sum_temp_one_day/24
-mean = average_one_day.repeat(24)
-print(average_one_day)
+#determinant
+print(np.linalg.det(a))
 
-import matplotlib.pyplot as plt
-get_ipython().run_line_magic('matplotlib', 'qt')
-plt.plot(temp)
-plt.plot()
-plt.xlabel('index')
-plt.ylabel('temp')
-plt.show
+b = np.linalg.inv(a)
+print(b)
+print(b.dot(a))
+print(a.dot(b))
 
-
-
-import pandas as pd
-import numpy as np
-one_hot_code = np.array([1,1,2,1,3,3,2,1,4])
-keep = []
-while len(one_hot_code)>0:
-    keep.append(one_hot_code[0])
-    one_hot_code = np.delete(one_hot_code, np.where(one_hot_code == one_hot_code[0]))
-
-re_place = np.identity(len(keep))
-print(keep)
-print(re_place)
-one_hot_code = np.array([1,1,2,1,3,3,2,1,4])
-for i in range(len(keep)):
-    print(keep[i])
-    one_hot_code[np.where(one_hot_code == keep[i])] = re_place[i]
-
-print(one_hot_code)
-
-
-
-
-import numpy as np
-arr2 = np.repeat(1 ,10).reshape (2 , -1)
-print(arr2)
-    
-import numpy as np
-arr1 = np . arange (10) . reshape (2 , -1)
-arr2 = np . repeat (1 ,10) . reshape (2 , -1)
-c = np . concatenate ([ arr1 , arr2 ] , axis =1)
-print ("C = ", c )
-
-import numpy as np
-arr = np . array ([1 ,2 ,3])
-print ( np . repeat ( arr ,3) )
-print ( np . tile ( arr ,3) )
-
+# cosine Similarity
 import numpy as np
 
-def maxx(x,y):
-    if x>= y:
-        return x
-    else: 
-        return y
-    
-a = np.array ([5 ,7 ,9 ,8 ,6 ,4 ,5])
-b = np.array ([6 ,3 ,4 ,8 ,9 ,7 ,1])
+a = np.array([1,2,3])
+b = np.array([4, 5, 6])
 
-vec_to = np.vectorize(maxx)
-print(vec_to(a,b))
+print(np.linalg.norm(a, ord = -np.inf))
+print(np.linalg.norm(a))
+def cosine(a,b):
+    cosine = (a.dot(b))/(np.linalg.norm(a)*np.linalg.norm(b))
+    return cosine
 
+## image Similarity
 import numpy as np
+from PIL import Image
 
-a = np . array ([5 ,7 ,9 ,8 ,6 ,4 ,5])
-b = np . array ([6 ,3 ,4 ,8 ,9 ,7 ,1])
+image1 = Image.open('D:/Homework/Module2/Week2/data/image1.jpg')
+image2 = Image.open('D:/Homework/Module2/Week2/data/image2.jpg')
+query_image = Image.open('D:/Homework/Module2/Week2/data/query_image.jpg')
 
-print (" Result ", np . where (a <b , b , a ) )
+image1_data = np.array(image1)
+image2_data = np.array(image2)
+query_image_data = np.array(query_image)
 
+image1_data = np.sum(image1_data, axis = -1, keepdims= 1)/3
+image2_data = np.sum(image2_data, axis = -1, keepdims= 1)/3
+query_image_data = np.sum(query_image_data, axis = -1, keepdims= 1)/3
+
+image1_data = image1_data.flatten()
+image2_data = image2_data.flatten()
+query_image_data = query_image_data.flatten()
+
+cosine_image1_query = cosine(image1_data, query_image_data)
+cosine_image2_query = cosine(image2_data, query_image_data)
+
+print(cosine_image1_query)
+print(cosine_image2_query)

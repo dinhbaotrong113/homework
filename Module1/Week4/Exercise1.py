@@ -34,7 +34,7 @@ def leven_distance(token1, token2):
                 else:
                     distances[i][j] = c
     return distances[len(token1)][len(token2)]
-
+print(leven_distance("elmets", "elements"))
 import streamlit as st
 
 def main():

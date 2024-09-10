@@ -14,4 +14,5 @@ def exercise1(tp,fp,fn):
             print(f"f1_score is:{f1}")
             return f1
 
+assert round(exercise1(2,3,5),2) == 0.33
 print(round(exercise1(2,4,5),2))

@@ -1,78 +1,40 @@
-import pandas as pd
+# norm product
 import numpy as np
 
-data = pd.read_csv('D:/Homework/Module2/Week1/temperature-1d.csv').to_numpy()
+def  compute_vector_length(vector):
+    norm = np.sqrt(np.sum([v**2 for v in vector]))
+    return norm
 
-temp = data[:,1].reshape(-1,24)
-sum_temp_one_day = temp.sum(axis=1)
-average_one_day = sum_temp_one_day/24
-mean = average_one_day.repeat(24)
-print(average_one_day)
+input_vector = np.array([-2,4,9,21])
+print(compute_vector_length(input_vector))
 
-import matplotlib.pyplot as plt
-get_ipython().run_line_magic('matplotlib', 'qt')
-plt.plot(temp)
-plt.plot()
-plt.xlabel('index')
-plt.ylabel('temp')
-plt.show
-
-
-
-import pandas as pd
+# dot product
 import numpy as np
-one_hot_code = np.array([1,1,2,1,3,3,2,1,4])
-keep = []
-while len(one_hot_code)>0:
-    keep.append(one_hot_code[0])
-    one_hot_code = np.delete(one_hot_code, np.where(one_hot_code == one_hot_code[0]))
+def compute_dot_product(vector1, vector2):
+    result = vector1.dot(vector2)
+    return result
 
-re_place = np.identity(len(keep))
-print(keep)
-print(re_place)
-one_hot_code = np.array([1,1,2,1,3,3,2,1,4])
-for i in range(len(keep)):
-    print(keep[i])
-    one_hot_code[np.where(one_hot_code == keep[i])] = re_place[i]
+v1 = np.array([[-1,2],[3,-4]])
+v2 = np.array([1,2])
+print(compute_dot_product(v1,v2))
 
-print(one_hot_code)
+print(v1@v2)
 
-
-
-
+# Multiply matrix with a vector
 import numpy as np
-arr2 = np.repeat(1 ,10).reshape (2 , -1)
-print(arr2)
-    
+v1 = np.array([[1,2],[3,4]])
+v1 = np.reshape(v1, (-1,4), "F")[0]
+v2 = np.array([[1,1,1,1],[2,2,2,2],[3,3,3,3],[4,4,4,4]])
+
+def compute_multiply_matrix(vector1, vector2):
+    result = vector1@vector2
+    return result
+print(compute_multiply_matrix(v1,v2))
+
+print(v1@v2)
+
+# inverse matrix
 import numpy as np
-arr1 = np . arange (10) . reshape (2 , -1)
-arr2 = np . repeat (1 ,10) . reshape (2 , -1)
-c = np . concatenate ([ arr1 , arr2 ] , axis =1)
-print ("C = ", c )
-
-import numpy as np
-arr = np . array ([1 ,2 ,3])
-print ( np . repeat ( arr ,3) )
-print ( np . tile ( arr ,3) )
-
-import numpy as np
-
-def maxx(x,y):
-    if x>= y:
-        return x
-    else: 
-        return y
-    
-a = np.array ([5 ,7 ,9 ,8 ,6 ,4 ,5])
-b = np.array ([6 ,3 ,4 ,8 ,9 ,7 ,1])
-
-vec_to = np.vectorize(maxx)
-print(vec_to(a,b))
-
-import numpy as np
-
-a = np . array ([5 ,7 ,9 ,8 ,6 ,4 ,5])
-b = np . array ([6 ,3 ,4 ,8 ,9 ,7 ,1])
-
-print (" Result ", np . where (a <b , b , a ) )
-
+v1 = np.array([[-2,6], [8,-4]])
+iverse = np.linalg.inv(v1)
+print(iverse)
